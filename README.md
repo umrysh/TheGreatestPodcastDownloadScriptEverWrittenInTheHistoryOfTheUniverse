@@ -21,6 +21,7 @@ All you have to do is make sure the files:
 * TheGreatestPodcastDownloadScriptEverWrittenInTheHistoryOfTheUniverse.sh
 * bashpodder.sh
 * mp3faster.bash
+
 are executable (by using chmod +x) and the script will take care of the rest.
 
 When run it will check for dependencies and alert you if you are missing any (this check can take some time). I have only tested this on an Arch Linux system so I can't guarantee the dependency check will work perfectly on other systems. If you find any errors please open up an [issue](https://github.com/umrysh/TheGreatestPodcastDownloadScriptEverWrittenInTheHistoryOfTheUniverse/issues) with as much information as you can.
