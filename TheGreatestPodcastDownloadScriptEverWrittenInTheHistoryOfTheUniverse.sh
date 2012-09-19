@@ -40,6 +40,8 @@ function main
 		elif test "$aok" == "6"; then
 			runIt
 		elif test "$aok" == "7"; then
+	   		addCrontab
+		elif test "$aok" == "8"; then
 			echo "-----------------------
 See Ya!
 -----------------------"
@@ -62,8 +64,6 @@ function mainSettings
 		elif test "$aok" == "2"; then
 			changeTemp
 		elif test "$aok" == "3"; then
-	   		addCrontab
-		elif test "$aok" == "4"; then
 			echo "-----------------------"
 			main
 		else
@@ -89,7 +89,8 @@ function menuOne
 (4) Change Speed On An Existing Podcast
 (5) Settings
 (6) Run Now (like, immediately!)
-(7) Break My Heart And Quit Me :(
+(7) Create/update Crontab entry
+(8) Break My Heart And Quit Me :(
 -----------------------"
 }
 
@@ -100,9 +101,8 @@ Settings:
 
 (1) Change Dropbox Location
 (2) Change Temp Location
-(3) Create/update Crontab entry
 
-(4) Go Back
+(3) Go Back
 -----------------------"
 }
 
@@ -119,8 +119,7 @@ function makeBPConf
 #
 # Warning: Editing this file yourself will break your warranty!
 # 
-############
-" >> bp.conf
+############" >> bp.conf
 }
 
 function makePS
@@ -508,10 +507,10 @@ fi
 if [[ `apt-get 2>&1` =~ command\ not ]] && [[ `pacman 2>&1` =~ command\ not ]]
 then
     # rhel/centos/fedora package requirements
-    command -v mpg321 >/dev/null 2>&1 || { echo >&2 "I require mpg321 but it's not installed. Run 'yum install mpg321' as root."; exit 1; }
-    command -v soundtouch >/dev/null 2>&1 || { echo >&2 "I require soundtouch but it's not installed. Run 'yum install soundtouch' as root."; exit 1; }
+    command -v mpg123 >/dev/null 2>&1 || { echo >&2 "I require mpg123 but it's not installed. Run 'yum install mpg123' as root."; exit 1; }
+    command -v soundstretch >/dev/null 2>&1 || { echo >&2 "I require soundtouch but it's not installed. Run 'yum install soundtouch' as root."; exit 1; }
     command -v lame >/dev/null 2>&1 || { echo >&2 "I require lame but it's not installed. Run 'yum install lame' as root."; exit 1; }
-    command -v id3lib >/dev/null 2>&1 || { echo >&2 "I require id3lib but it's not installed. Run 'yum install id3lib' as root."; exit 1; }
+    command -v id3cp >/dev/null 2>&1 || { echo >&2 "I require id3lib but it's not installed. Run 'yum install id3lib' as root."; exit 1; }
 else
 	if [[ `pacman 2>&1` =~ command\ not ]]
 	then
