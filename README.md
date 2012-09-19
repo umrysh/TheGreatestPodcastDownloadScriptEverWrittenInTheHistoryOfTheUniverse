@@ -8,7 +8,7 @@ With this script you can:
 * Add/delete podcasts from your list
 * Change the tempo of the podcasts so you can listen to them faster (Without resorting to having the hosts sound like chipmunks)
 * Set the storage directory to a sub directory of your Dropbox folder. This way all your downloaded podcasts are available everywhere.
-* Create/modify a crontab entry for downloading all your podcasts (To be completed soon)
+* Create/modify a crontab entry for downloading all your podcasts.
 
 **Note: I have been using this script on my own machines with no issues but this is still very fresh code so please, use at your own risk.**
 
@@ -63,4 +63,4 @@ In turn I have to give major props to the author of the mp3faster script found i
 License
 -------
 
-MySQL Admin is open source software released under the GNU GENERAL PUBLIC LICENSE V3.
+This script is open source software released under the GNU GENERAL PUBLIC LICENSE V3.

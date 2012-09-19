@@ -409,24 +409,42 @@ If you would like to run with either of the options below, please choose it now.
 
 function addCrontab
 {
-	echo "Not completed yet."
     # get crontab
-    #crontab -l >/tmp/crontab.a
+    crontab -l >/tmp/crontab.a
      
-    #echo "Warning: It is assumed you know your way around a crontab. You can seriously mess up your system if you don't.
-#"
-    # see if entry already exists
-     
-    # if so print for user
+    echo "Warning: It is assumed you know your way around a crontab. You can seriously mess up your system if you don't."
+    # see if entry already exists, if so print for user
+    echo "If there is an existing entry for this script I will print it below:"
+    awk '/bashpodder.sh/ { print $0 }' /tmp/crontab.a 
     
-	#sed -e 's=\(^.*/opt/watchdog/star####chdog.sh$\)=#\1' /tmp/crontab.a | crontab
+    echo "
+Please enter when you would like the script to run in the form,
+Minute Hour Day Month Weekday"
+	read aok
+	newEntry=$aok
 
+	DIR="$( readlink -f "$( dirname "$0" )" )"
+	
+	echo "I am about to enter the following crontab entry. Enter 'Yes' to confirm, anything else to cancel.
+$newEntry $DIR/bashpodder.sh -w
+"
+	read aok
+	if test "$aok" == "Yes";then
+		#remove old instances
+		sed '/bashpodder.sh/d' /tmp/crontab.a > /tmp/crontab.a.tmp
+		mv /tmp/crontab.a.tmp /tmp/crontab.a
 
+		echo "$newEntry $DIR/bashpodder.sh -w" >> /tmp/crontab.a
+		crontab /tmp/crontab.a
+
+		echo "-----------------------
+Crontab Modified."
+	else
+		echo "-----------------------
+Crontab Left Alone."
+	fi
     # remove temp file
-    #rm /tmp/crontab.a
-    #echo "-----------------------
-#Crontab Modified.
-#-----------------------"
+    rm /tmp/crontab.a
 }
 #
 #
