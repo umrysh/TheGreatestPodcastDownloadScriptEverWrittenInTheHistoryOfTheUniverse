@@ -16,6 +16,7 @@
 #
 #	 Features I still want to complete are marked with a "To-do"
 
+oldDir="$( readlink -f "$( dirname "$0" )" )"
 #
 #
 #### Menus ####
@@ -422,8 +423,13 @@ Minute Hour Day Month Weekday"
 	read aok
 	newEntry=$aok
 
-	DIR="$( readlink -f "$( dirname "$0" )" )"
+	if test "${oldDir%${oldDir#?}}" == ".";then
+		# Remove leading .
+		oldDir="${oldDir#?}"
+	fi
 	
+	DIR=$oldDir
+
 	echo "I am about to enter the following crontab entry. Enter 'Yes' to confirm, anything else to cancel.
 $newEntry $DIR/bashpodder.sh -w
 "
