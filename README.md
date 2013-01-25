@@ -38,9 +38,8 @@ http://skeptoid.com/podcast.xml 82
 http://feeds.wnyc.org/radiolab?utm_source=rss&utm_medium=hp&utm_campaign=radiolab 0
 http://leoville.tv/podcasts/twig.xml 90
 http://feeds.thecommandline.net/cmdln 82
-http://feeds2.feedburner.com/RatholeRadio-ogg 0
-http://www.daveramsey.com/media/audio/podcast/podcast_itunes.xml 80
-http://feeds.feedburner.com/5by5-inbeta 82
+http://feed.nashownotes.com/rss.xml 82
+http://feeds.5by5.tv/inbeta 82
 
 </pre>
 
