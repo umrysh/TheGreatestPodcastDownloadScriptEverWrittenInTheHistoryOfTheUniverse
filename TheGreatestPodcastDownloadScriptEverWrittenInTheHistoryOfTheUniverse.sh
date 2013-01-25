@@ -48,8 +48,8 @@ See Ya!
 -----------------------"
 			exit 0;
 		else
-			echo "-----------------------
-Invalid Selection
+			echo -e "-----------------------
+\e[1;31mInvalid Selection\e[0m
 -----------------------"
 		fi
 	done
@@ -68,8 +68,8 @@ function mainSettings
 			echo "-----------------------"
 			main
 		else
-			echo "-----------------------
-Invalid Selection"
+			echo -e "-----------------------
+\e[1;31mInvalid Selection\e[0m"
 		fi
 	done
 }
@@ -143,7 +143,7 @@ Feed @ Speed
 		if echo $podcast | grep '^#' > /dev/null; then
 			continue
 		fi
-		echo "($counter) $podcast @ $tempo" 
+		echo -e "\e[1;34m($counter) $podcast @ $tempo\e[0m" 
 		counter=$(($counter+1)) 
 	done < bp.conf  
 	echo "
@@ -208,7 +208,7 @@ function delFeed
 Feeds
 ------------"
 		fi
-		echo "($counter) $podcast"
+		echo -e "\e[1;34m($counter) $podcast\e[0m"
 		counter=$(($counter+1)) 
 	done < bp.conf
 
@@ -229,7 +229,7 @@ Enter the number of the feed you want to remove.
 		done
 
 		# Test that it was a valid entry
-		if [ ! "$aok" -gt "$counter" ];then
+		if [ ! "$aok" -ge "$counter" ];then
 			counter=1
 			line=0
 			while read podcast tempo; do
@@ -249,8 +249,8 @@ Enter the number of the feed you want to remove.
 Podcast Removed.
 -----------------------"
 		else
-			echo "-----------------------
-Invalid Selection
+			echo -e "-----------------------
+\e[1;31mInvalid Selection\e[0m
 -----------------------"
 		fi
 	fi
@@ -270,7 +270,7 @@ function changeFeed
 Feeds
 ------------"
 		fi
-		echo "($counter) $podcast @ $tempo"
+		echo -e "\e[1;34m($counter) $podcast @ $tempo\e[0m"
 		counter=$(($counter+1)) 
 	done < bp.conf
 
@@ -324,8 +324,8 @@ Podcast Modified.
 -----------------------"
 
 		else
-			echo "-----------------------
-Invalid Selection
+			echo -e "-----------------------
+\e[1;31mInvalid Selection\e[0m
 -----------------------"
 		fi
 	fi
