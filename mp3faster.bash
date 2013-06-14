@@ -18,6 +18,9 @@
 # the above decoding technique doesn't always work, and can sometimes 
 # create a wav file that plays back too fast. Seems to happen with mp3 files that
 # have a low bitrate (< 80kbps). Using the lame alternative below get's around this.
+
+new=$(dirname $1)/`date +"%Y-%m-%d-"`$(basename $1)
+
 if [ $2 != 0 ]; then
 # alternative #1 to decoding an mp3 to wav
 lame --decode "$1" "$1.wav"
@@ -32,12 +35,14 @@ lame --preset fast medium "$1.fast.wav" "$1.2.mp3"
 # copy id3 tags from old file
 id3cp -1 "$1" "$1.2.mp3"
 # remove temp files
-rm "$1.wav" "$1.fast.wav"
+rm "$1.wav" "$1.fast.wav" "$1"
 # rename original mp3 file to .bak extension
 # mv "$1" "$1.bak"
 # rename processed mp3 file to original name
-mv -f "$1.2.mp3" "$1"
+mv -f "$1.2.mp3" "$new"
+elif [ $2 == 0 ]; then
+mv -f "$1" "$new"
 fi
 # Move file to DropBox
-mv "$1" "$3/"
+mv "$new" "$3/"
 exit
