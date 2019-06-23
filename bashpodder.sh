@@ -21,6 +21,9 @@ usetorrents=
 sync_disks=
 disable_watch=
 fetchlist='bp.conf'
+wget_timeout='-T 4000'
+wget_retry='-t 100'
+wget_exe=$(which wget)
 
 function usage
 {
@@ -75,7 +78,7 @@ if [ ! -f podcast.log ]; then touch podcast.log; fi
 
 while [ "$1" != "" ]; do
   case $1 in
-  -v|--verbose ) 
+  -v|--verbose )
     verbose=1
     wget_continue='-c'
     wget_quiet=''
@@ -131,7 +134,7 @@ while read podcast tempo; do
 
   # Check to make sure feeddir is listed on each line; if not, print message.
   # Or, comment out the exit 1 line to have bashpodder quit if datadir not
-  # there. 
+  # there.
   if test ! $feeddir; then
     echo "No feed directory specified in bp.conf for the $podcast feed."
     exit 1;
@@ -139,18 +142,18 @@ while read podcast tempo; do
 
   seenfirst=
   if [ -n "$verbose" ]; then echo "fetching rss $podcast...";fi;
-  file=$(wget -q $podcast -O - | xsltproc parse_enclosure.xsl - 2> /dev/null) || \
-  file=$(wget -q $podcast -O - | tr '\r' '\n' | tr \' \" | sed -n 's/.*url="\([^"]*\)".*/\1/p')
+  file=$($wget_exe -q $podcast -O - | xsltproc parse_enclosure.xsl - 2> /dev/null | cut -f1 -d"?" ) || \
+  file=$($wget_exe -q $podcast -O - | tr '\r' '\n' | tr \' \" | sed -n 's/.*url="\([^"]*\)".*/\1/p')
 
   for url in $file; do
-    if [ -n "$first_only" ] && [ -n "$seenfirst" ]; then 
+    if [ -n "$first_only" ] && [ -n "$seenfirst" ]; then
       break;
     fi
 
     echo $url >> temp.log
 
     if [ -n "$catchup_all" ]; then
-      if [ -n "$verbose" ]; then 
+      if [ -n "$verbose" ]; then
         echo " catching up $url...";
       fi
     elif ! grep "$url" podcast.log > /dev/null; then
@@ -165,9 +168,10 @@ while read podcast tempo; do
         mkdir $feeddir
       fi
       pushd $feeddir > /dev/null 2>&1
-      #wget $wget_continue $wget_quiet -q -P "$feeddir" "$url" &
+      #$wget_exe $wget_continue $wget_quiet -q -P "$feeddir" "$url" &
       mp3filename=$(echo "$url" | awk -F'/' {'print $NF'} | awk -F'=' {'print $NF'} | awk -F'?' {'print $1'})
-      (wget $wget_continue $wget_quiet -O $mp3filename "$url"; $mp3filelocation $feeddir/$mp3filename $tempo $DropBoxLocation > /dev/null 2>&1) & popd > /dev/null 2>&1
+      mp3filename=`date +"%Y-%m-%d-%d-%H%M%S%6N-"`$mp3filename
+      ($wget_exe $wget_continue $wget_quiet -O $mp3filename $wget_timeout $wget_retry "$url"; $mp3filelocation $feeddir/$mp3filename $tempo $DropBoxLocation > /dev/null 2>&1) & popd > /dev/null 2>&1
     fi
 
     seenfirst=1

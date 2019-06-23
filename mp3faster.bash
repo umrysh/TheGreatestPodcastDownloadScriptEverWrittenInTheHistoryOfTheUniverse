@@ -1,5 +1,5 @@
 % more mp3faster.bash
- 
+
 #!/bin/bash
 # mp3faster - script for making mp3 playback faster with soundstretch
 #
@@ -14,26 +14,30 @@
 #
 # decode mp3 to wav file
 #mpg321 --wav "$1.wav" "$1"
- 
-# the above decoding technique doesn't always work, and can sometimes 
+
+# the above decoding technique doesn't always work, and can sometimes
 # create a wav file that plays back too fast. Seems to happen with mp3 files that
 # have a low bitrate (< 80kbps). Using the lame alternative below get's around this.
 
-new=$(dirname $1)/`date +"%Y-%m-%d-"`$(basename $1)
+soundstretch_exe=$(which soundstretch)
+lame_exe=$(which lame)
+id3cp_exe=$(which id3cp)
+
+new=$(dirname $1)/$(basename $1)
 
 if [ $2 != 0 ]; then
 # alternative #1 to decoding an mp3 to wav
 lame --decode "$1" "$1.wav"
 # alternative #2 to decoding an mp3 to wav
 # mpg321 -b 10000 -s -r 44100 $1 | sox -t raw -r 44100 -s -w -c2 - "$1.wav"
- 
+
 # process file with soundstretch
 #soundstretch "$1.wav" "$1.fast.wav" -tempo=+65
-soundstretch "$1.wav" "$1.fast.wav" -tempo=+$2
+$soundstretch_exe "$1.wav" "$1.fast.wav" -tempo=+$2
 # encode mp3 file
-lame --preset fast medium "$1.fast.wav" "$1.2.mp3"
+$lame_exe --preset fast medium "$1.fast.wav" "$1.2.mp3"
 # copy id3 tags from old file
-id3cp -1 "$1" "$1.2.mp3"
+$id3cp_exe -1 "$1" "$1.2.mp3"
 # remove temp files
 rm "$1.wav" "$1.fast.wav" "$1"
 # rename original mp3 file to .bak extension

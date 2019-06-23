@@ -32,14 +32,25 @@ Sample Podcasts
 If you are new to podcasting or are looking for some new shows here is what my `bp.conf` looks like:
 <pre>
 http://feeds.feedburner.com/dancarlin/history?format=xml 0
-http://feeds.feedburner.com/linuxoutlaws 90
-http://leoville.tv/podcasts/sn.xml 90
-http://skeptoid.com/podcast.xml 82
-http://feeds.wnyc.org/radiolab?utm_source=rss&utm_medium=hp&utm_campaign=radiolab 0
-http://leoville.tv/podcasts/twig.xml 90
-http://feeds.thecommandline.net/cmdln 82
-http://feed.nashownotes.com/rss.xml 82
-http://feeds.5by5.tv/inbeta 82
+http://skeptoid.com/podcast.xml 160
+http://feeds.thecommandline.net/cmdln 160
+http://ratholeradio.org/feed/ 0
+http://sixgun.org/feed/gnr 160
+http://leoville.tv/podcasts/sn.xml 220
+http://feeds.podtrac.com/2P68PDQSg03Y 160
+https://www.smashingsecurity.com/rss 160
+https://feeds.buzzsprout.com/174852.rss 160
+http://feeds.twit.tv/floss.xml 160
+https://www.almanac.com/podcast/feed/astounding-universe 160
+http://sixgun.org/ho/feed/mp3/ 160
+https://tuxdigital.com/feed/thisweekinlinux-mp3 160
+https://feeds.pacific-content.com/commandlineheroes 160
+https://notasgrumpyashelooks.wordpress.com/category/podcasts/feed/ 160
+http://sixgun.org/mc/feed/mp3/ 160
+https://rss.art19.com/voyage-to-the-stars 0
+https://rss.acast.com/wrestleme 150
+http://sixgun.org/tl/feed/mp3/ 160
+https://feeds.megaphone.fm/darknetdiaries 160
 
 </pre>
 
